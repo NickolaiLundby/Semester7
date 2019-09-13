@@ -13,8 +13,16 @@ let students = [
 ];
 
 module.exports.listStudents = (req, res) => {
-    res.render('listStudents', {
+    res.render('students', {
         title: 'Student list',
         students
+    });
+}
+
+module.exports.addStudent = function (req, res, next) {
+    var student = new StudentModel(req.body);
+    student.save()
+        .catch(err => {
+        res.status(400).send("Unable to save to database");
     });
 }

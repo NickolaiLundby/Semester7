@@ -1,0 +1,28 @@
+<h1>Students in ITTWEB</h1>
+<% students.forEach(student => { %>
+    <strong><%= student.studentNr%>
+    </strong>
+    <span><%= student.firstName%>
+    <%= student.lastName%></span>
+    <br/>
+<% }); %>
+
+<form name="addStudentForm" method="POST" action="student/addStudent">
+    <table>
+        <tr>
+            <td>Student Number</td>
+            <td><input type="number" name="studentNr" ></td>
+        </tr>
+        <tr>
+            <td>First name</td>
+            <td><input type="text" name="firstName" ></td>
+        </tr>
+        <tr>
+            <td>Last name</td>
+            <td><input type="text" name="lastName" ></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Save" ></td>
+        </tr>
+    </table>
+    </form>
