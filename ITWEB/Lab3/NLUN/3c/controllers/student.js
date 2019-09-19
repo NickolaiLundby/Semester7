@@ -1,4 +1,5 @@
-const StudentModel = require('../models/student');
+const mongoose = require('mongoose');
+const Student = mongoose.model('Student');
 'use strict';
 
 let students = [
@@ -20,7 +21,7 @@ module.exports.listStudents = (req, res) => {
 }
 
 module.exports.addStudent = function (req, res, next) {
-    var student = new StudentModel(req.body);
+    var student = new Student(req.body);
     student.save()
         .catch(err => {
         res.status(400).send("Unable to save to database");
