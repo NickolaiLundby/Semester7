@@ -16,18 +16,18 @@ client.connect(function(err) {
     const db = client.db(dbName);
   
     insertDocuments(db, function() {
-        client.close();
+      client.close();
     });
     removeDocument(db, function(){
         client.close();
     })
   });
 
-const insertDocuments = function(db, callback) {
+const insertDocuments = async function(db, callback) {
     // Get the documents collection
     const collection = db.collection('documents');
     // Insert some documents
-    collection.insertMany([
+    await collection.insertMany([
       {a : 1}, {a : 2}, {a : 3}
     ], function(err, result) {
       assert.equal(err, null);
@@ -38,11 +38,11 @@ const insertDocuments = function(db, callback) {
     });
   }
   
-  const removeDocument = function(db, callback) {
+  const removeDocument = async function(db, callback) {
     // Get the documents collection
     const collection = db.collection('documents');
     // Delete document where a is 3
-    collection.deleteOne({ a : 3 }, function(err, result) {
+     await collection.deleteOne({ a : 3 }, function(err, result) {
       assert.equal(err, null);
       assert.equal(1, result.result.n);
       console.log("Removed the document with the field a equal to 3");
