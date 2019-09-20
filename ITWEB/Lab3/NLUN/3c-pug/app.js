@@ -11,5 +11,6 @@ const app = express();
 module.exports = app;
 
 // Bootstrap routes
-require('./config/express')(app);
 require('./config/routes')(app);
+// Bootstrap express
+require('./config/express')(app);
