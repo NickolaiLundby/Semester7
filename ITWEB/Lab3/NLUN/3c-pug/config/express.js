@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const config = require('./');
 
-module.exports = function(app){
+module.exports = function(app, passport){
     // Database
     require('./db');
 
@@ -20,4 +20,8 @@ module.exports = function(app){
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
     app.use(cookieParser());
+
+    // Use passport for authentication
+    app.use(passport.initialize());
+    app.use(passport.session());
 };

@@ -3,16 +3,38 @@
 // Module dependencies.
 
 const index = require('../app/controllers/index');
-const students = require('../app/controllers/students');
+const auth = require('../app/controllers/auth');
+const users = require('../app/controllers/users');
+const workouts = require('../app/controllers/workouts');
+const authorization = require('./middleware/authorization');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
+    // Bind passport for authentication
+    const pauth = passport.authenticate.bind(passport);
 
     // Expose routes
-
     app.get('/', index.index);
 
-    // Error handling
+    // Extern auth routes
+    app.get('/auth/github', auth.unimplemented);
+    app.get('/auth/google', auth.unimplemented);
 
+    // Public routes
+    app.get('/users/login', users.login);
+    app.get('/users/signup', users.signup);
+    app.post('/users/create', users.create);
+    app.post('/users/session', pauth('local', {
+        failureRedirect: '/login',
+        failureFlash: 'Invalid credentials'
+        }),
+        users.session
+    );
+
+    // Routes required authorization
+    app.get('/workouts/new', authorization.loginRequired, workouts.new);
+    app.post('/workouts', authorization.loginRequired, workouts.create);
+
+    // Error handling
     app.use(function(err, req, res, next) {
 
         // Handle 404
@@ -35,7 +57,6 @@ module.exports = function(app) {
         // Error page
         res.status(500).render('500', { error: err.stack });
     });
-
     app.use(function(req, res) {
         const payload = {
             url: req.originalUrl,
