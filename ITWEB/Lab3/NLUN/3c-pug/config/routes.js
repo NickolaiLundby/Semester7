@@ -32,6 +32,7 @@ module.exports = function(app, passport) {
 
     // Routes required authorization
     app.get('/workouts/new', authorization.loginRequired, workouts.new);
+    app.get('/workouts/:id', authorization.loginRequired, workouts.show);
     app.post('/workouts', authorization.loginRequired, workouts.create);
 
     // Error handling
