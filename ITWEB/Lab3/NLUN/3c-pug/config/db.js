@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const server = 'localhost:27017'; // Could be replaced with extern ip
-const database = 'studentdb'; // Any database name here
+const database = 'workoutdb'; // Any database name here
 
 class Database {
     constructor() {

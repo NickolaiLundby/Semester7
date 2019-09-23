@@ -24,7 +24,7 @@ module.exports = function(app, passport) {
     app.get('/users/signup', users.signup);
     app.post('/users/create', users.create);
     app.post('/users/session', pauth('local', {
-        failureRedirect: '/login',
+        failureRedirect: '/users/login',
         failureFlash: 'Invalid credentials'
         }),
         users.session

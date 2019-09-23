@@ -26,6 +26,18 @@ exports.create = async(function*(req, res){
     }
 });
 
+// Load user by _id from database
+exports.load = async(function*(req, res) {
+    const index = { _id };
+    try {
+        req.profile = yield User.load({ index });
+        if (!req.profile) return next(new Error('User does not exist'));
+    } catch(err) {
+        return next(err);
+    }
+    next();
+});
+
 // Show sign up to user
 exports.signup = function(req, res) {
     res.render('users/signup', {
