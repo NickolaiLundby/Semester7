@@ -4,11 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const layout = require('express-ejs-layouts');
+const db = require('./models/db');
 
 // routing
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var listStudentRouter = require('./routes/listStudents');
+var studentsRouter = require('./routes/students');
+var studentRouter = require('./routes/student');
 
 var app = express();
 
@@ -26,10 +28,8 @@ app.use(layout);
 // routing
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/listStudents', listStudentRouter);
-
-// functions
-app.locals = require('./functions/helpers')
+app.use('/students', studentsRouter);
+app.use('/student', studentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

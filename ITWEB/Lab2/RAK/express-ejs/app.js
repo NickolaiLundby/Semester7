@@ -3,12 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const layout = require('express-ejs-layouts');
+const layouts = require('express-ejs-layouts');
 
-// routing
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var listStudentRouter = require('./routes/listStudents');
+var studentRouter = require('./routes/student');
+var studentsRouter = require('./routes/students');
 
 var app = express();
 
@@ -21,15 +21,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(layout);
+app.use(layouts);
 
-// routing
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/listStudents', listStudentRouter);
-
-// functions
-app.locals = require('./functions/helpers')
+app.use('/student', studentRouter);
+app.use('/students', studentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

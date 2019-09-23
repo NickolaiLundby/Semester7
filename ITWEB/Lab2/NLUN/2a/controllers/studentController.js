@@ -23,8 +23,15 @@ let students = [
 }
 ];
 
+module.exports.addStudents = (req, res) => {
+    res.render('addStudents', {
+        title: 'Add Student'
+    });
+}
+
 module.exports.listStudents = (req, res) => {
     res.render('listStudents', {
+        title: 'Student list',
         students
     });
 }
